@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../views/partials/html_head%>
+    <title>
+      <%= title %>
+    </title>
+
+</head>
+
+<body>
+  <% include ../views/partials/header%>
+
+    <h1>
+      <%= title %>
+    </h1>
+    <form name="newuser" method="post" action="/createuser">
+      <input type="text" name="username" placeholder="username">
+      <br>
+      <input type="text" name="animal" placeholder="animal">
+      <br>
+      <input type="submit" value="Add User">
+    </form>
+
+    <form id="add_new_sensor" method="post" action="api/sensor/add">
+      <div class="mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title mdl-card--expand">
+          <h2 class="mdl-card__title-text">Add NEW sensor</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label hidden-gone">
+            <input class="mdl-textfield__input" type="text" value="<%= sensor._id %>" name="_id" id="_id">
+            <label class="mdl-textfield__label" for="_id">ID</label>
+          </div>
+          <br>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" value="<%= sensor.name %>" pattern="-?^[a-zA-Z0-9_]*?" name="name" id="name">
+            <label class="mdl-textfield__label" for="name">Name</label>
+            <span class="mdl-textfield__error">Use only characters, numbers or '_' !</span>
+          </div>
+          <br>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" value="<%= sensor.model_type %>" pattern="-?^[a-zA-Z0-9_]*?" name="model_type"
+              id="model_type">
+            <label class="mdl-textfield__label" for="model_type">Model type</label>
+            <span class="mdl-textfield__error">Use only characters, numbers or '_' !</span>
+          </div>
+          <br>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" value="<%= sensor.description %>" name="description" id="description">
+            <label class="mdl-textfield__label" for="description">Description</label>
+          </div>
+          <br>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" value="<%= sensor.num_of_pins %>" pattern="-?^[0-9]*?" name="num_of_pins"
+              id="num_of_pins">
+            <label class="mdl-textfield__label" for="num_of_pins">Number of Pins:</label>
+            <span class="mdl-textfield__error">Invalid Number!</span>
+          </div>
+          <br>
+          <br>
+          <div class="border">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" value="<%= sensor.num_of_pins %>" pattern="-?^[0-9]*?" name="num_of_pins"
+                  id="num_of_pins">
+                <label class="mdl-textfield__label" for="num_of_pins">Number of Pins:</label>
+                <span class="mdl-textfield__error">Invalid Number!</span>
+              </div>
+            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-1">
+              <input type="radio" id="option-1" class="mdl-radio__button" name="pin_type" value="A" checked>
+              <span class="mdl-radio__label">Analog</span>
+            </label>
+            <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="option-2">
+              <input type="radio" id="option-2" class="mdl-radio__button" name="pin_type" value="D">
+              <span class="mdl-radio__label">Digital</span>
+            </label>
+            <br>
+          </div>
+          <br>
+          <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit" value="submit">
+        </div>
+      </div>
+    </form>
+
+
+    <% include ../views/partials/footer%>
+</body>
+
+</html>

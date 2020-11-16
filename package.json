@@ -1,0 +1,32 @@
+{
+  "name": "arduinocommserver",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "chart.js": "^2.9.3",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "^4.16.4",
+    "http-errors": "~1.6.2",
+    "influx": "^5.5.2",
+    "influxdb": "0.0.1",
+    "influxdb-nodejs": "^3.1.0",
+    "material-design-icons": "^3.0.1",
+    "moment": "^2.23.0",
+    "mongodb": "^3.1.8",
+    "monk": "^6.0.6",
+    "morgan": "^1.9.1",
+    "mosca": "^2.8.3",
+    "mqtt": "^4.1.0",
+    "nodemon": "^1.18.4",
+    "socket.io": "^1.7.3",
+    "uuid": "^8.2.0",
+    "ws": "^6.1.0"
+  }
+}

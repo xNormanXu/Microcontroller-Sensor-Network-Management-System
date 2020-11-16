@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../views/partials/html_head%>
+    <title>
+      <%= title %>
+    </title>
+
+</head>
+
+<body>
+  <% include ../views/partials/header%>
+
+    <form id="add_new_microcontroller" method="post" action="../api/microcontroller/add">
+      <div class="mdl-card-wide mdl-shadow--2dp" style="background: whitesmoke; margin: 10px 4px; ">
+        <div class="mdl-card__title mdl-card--expand">
+          <h2 class="mdl-card__title-text">Edit MicroController information below</h2>
+        </div>
+        <div class="mdl-card__supporting-text" style="width: 97%;">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell--4-col mdl-cell--8-col-desktop">
+            <input class="mdl-textfield__input" type="text" value="<%= esp.name %>" pattern="-?^[a-zA-Z0-9 _]*?" name="name" id="name">
+            <label class="mdl-textfield__label" for="name">Name</label>
+            <span class="mdl-textfield__error">Use characters and numbers only!</span>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell--4-col mdl-cell--4-col-desktop">
+            <input class="mdl-textfield__input" type="text" value="<%= esp.mac%>" pattern="-?^[a-zA-Z0-9:]*?" name="mac" id="mac">
+            <label class="mdl-textfield__label" for="mac">MAC address</label>
+            <span class="mdl-textfield__error">Invalid MAC address!</span>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell--4-col mdl-cell--4-col-desktop hidden">
+            <input class="mdl-textfield__input" type="number" pattern="-?^[0-1]*?" name="status" id="status" data-required=true readonly value="<%= esp.status%>" >
+            <label class="mdl-textfield__label" for="status">Status: </label>
+            <span class="mdl-textfield__error">Invalid status!</span>
+          </div>
+          <br>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            <textarea class="mdl-textfield__input" type="text" rows=4 name="description" id="description"><%= esp.description %></textarea>
+            <label class="mdl-textfield__label" for="description">Description</label>
+            <span class="mdl-textfield__error">Use only characters, numbers or '_' !</span>
+          </div>
+          <br>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell--4-col mdl-cell--4-col-desktop">
+            <input class="mdl-textfield__input" type="text" value="<%= esp.model_type %>" pattern="-?^[a-zA-Z0-9_]*?" name="model_type"
+              id="model_type" data-required=true>
+            <label class="mdl-textfield__label" for="model_type">Model type</label>
+            <span class="mdl-textfield__error">Use only characters, numbers or '_' !</span>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell--4-col mdl-cell--4-col-desktop">
+            <input class="mdl-textfield__input" type="text" value="<%= esp.ip %>" pattern="-?^[0-9.]*?" name="ip" id="ip" readonly>
+            <label class="mdl-textfield__label" for="ip">IP address</label>
+            <span class="mdl-textfield__error">Invalid IP address!</span>
+          </div>
+
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell--4-col mdl-cell--4-col-desktop">
+            <input class="mdl-textfield__input" type="text" value="<%= esp.num_of_pins %>" pattern="-?^[0-9]*?" name="num_of_pins" id="num_of_pins" data-required=true>
+            <label class="mdl-textfield__label" for="num_of_pins">Number of Pins:</label>
+            <span class="mdl-textfield__error">Invalid Number!</span>
+          </div>
+          <br>
+          <span style="top:4px; font-size:12px; color:var(--accent-green)">Enter pin labels below: </span>
+          <div id="pins_layout" class="mdl-grid" style="margin: 0 4px 0 -8px;">
+              
+            <%if(esp.num_of_pins>0) { esp.pins.forEach(function(el, index) { %>
+              <div class='mdl-cell--4-col mdl-cell--3-col-desktop border-rc m2'>
+                <div class='mdl-textfield mdl-js-textfield pin_labels'>
+                  <span style="top:4px; font-size:10px;"> Pin label: </span>
+                  <input class='mdl-textfield__input' type='text' pattern='-?^[a-zA-Z0-9_]*?' placeholder='e.g.: GPIO_02' 
+                    title="Use only characters, numbers or '_' !" name='pin_label' value="<%= esp.pins[index].pin_label %>" data-required=true>
+                </div>
+                <div class='mdl-textfield mdl-js-textfield pin_labels'>
+                  <span style="top:4px; font-size:10px;"> Pin number: </span>
+                  <input class='mdl-textfield__input' type='text' pattern='-?^[0-9]*?' placeholder='e.g.: 2' 
+                    title="Use numbers only !" name='pin_num' value="<%= esp.pins[index].pin_num %>" data-required=true>
+                </div>
+              </div>
+            <% }); }%>
+          </div>
+          <br>
+          <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit" value="submit">
+        </div>
+      </div>
+    </form>
+
+    <script src="../javascripts/esp_add.js"></script>
+    <script src="../javascripts/data_required_script.js"></script>
+    <% include ../views/partials/footer%>
+</body>
+
+</html>

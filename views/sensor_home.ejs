@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../views/partials/html_head%>
+    <title>
+      <%= title %>
+    </title>
+</head>
+
+<body>
+  <% include ../views/partials/header%>
+  <script type="text/javascript" src="../javascripts/sensor_home.js"></script>
+    <div class="mdl-grid mdl-card mdl-card__actions" style="top:70px; right:20px; margin: 5px; min-height: 50px; float:right; position: fixed; z-index: 999; overflow: visible;">
+      <button id="sort-sensor-menu" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+        style="position: absolute; right:200px;">
+        <i class="material-icons">sort</i> SORT
+      </button>
+
+      <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="sort-sensor-menu" style="z-index: 999; min-width: 90px;">
+        <li class="mdl-menu__item" onclick="window.open('../sensor/home','_self')"> Name ↑ </li>
+        <li class="mdl-menu__item" onclick="window.open('../sensor/home?sort=1','_self')"> Name ↓ </li>
+        <li class="mdl-menu__item" onclick="window.open('../sensor/home?sort=2','_self')">Model ↑ </li>
+        <li class="mdl-menu__item" onclick="window.open('../sensor/home?sort=3','_self')">Model ↓ </li>
+        <li class="mdl-menu__item" onclick="window.open('../sensor/home?sort=4','_self')">Category </li>
+      </ul>
+
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="window.open('/sensor/add','_self');"
+        style="position:absolute; right:10px;">
+        <span class="mdl-chip__text">Add new sensor</span>
+        <i class="material-icons">add</i>
+      </button>
+
+
+    </div>
+    <div class="mdl-grid portfolio-max-width" style="margin-top: 50px; padding:20px;">
+
+      <% if(sensors && sensors.length > 0){%>
+        <% sensors.forEach(function(el, index) { %>
+          <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card sensor-card" style="max-height: 240px;">
+            <div class="mdl-card__media <%if (el.category == 1){ %> sensor <%}else{ %> actuator <%}%>">
+            </div>
+            <div class="mdl-card__title" style="padding: 12px 16px 4px;">
+              <!-- <img src="../images/sensor_default.png"> -->
+              <h5 class="mdl-card__title-text"><%= el.name %></h5>
+            </div>
+            <div class="mdl-card__supporting-text description giveMeEllipsis " onclick=" $(this).toggleClass('giveMeEllipsis');$(this).toggleClass('overflow-scroll');">
+                <%= el.description %>
+            </div>
+            <div class="mdl-card__supporting-text">
+              <strong>Model: </strong> <%= el.model_type %>
+              <i style="margin: 0 8px; color:var(--accent-green); "><% if(el.category==0){ %> [ACTUATOR] <%}else{%> [SENSOR] <%}%></i>
+            </div>
+            <div class="mdl-card__supporting-text">
+              <strong>Number of Pins:</strong> <%= el.num_of_pins %>
+            </div>
+            <div class="mdl-card__supporting-text">
+                <strong>Pins:</strong> <%= el.pin_label %>
+            </div>
+            <div class="mdl-card__supporting-text">
+                <strong>Number of Fields:</strong> <%= el.num_of_fields %>
+            </div>
+            <div class="mdl-card__supporting-text">
+              <strong>Fields:</strong> <%= el.field %>
+          </div>
+            <div class="mdl-card__actions mdl-card--border" style="position:inherit;bottom:0;">
+              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href="/sensor/modify?id=<%= el.model_type %>"
+                  data-upgraded=",MaterialButton,MaterialRipple">Edit
+                <span class="mdl-button__ripple-container">
+                  <span class="mdl-ripple"></span>
+                </span>
+              </a>
+              <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" onclick="deleteSensor(this)" data-modeltype="<%= el.model_type %>" href="#"
+                  style="color: red; float: right;" data-upgraded=",MaterialButton,MaterialRipple">DELETE
+                <span class="mdl-button__ripple-container">
+                  <span class="mdl-ripple"></span>
+                </span>
+              </a>
+            </div>
+          </div>
+        <%});%>
+      <%}else{%>
+        <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card" style="width:calc(100%);">
+          <div class="mdl-card__media offline">
+          </div>
+          <div class="mdl-card__title">
+            <h5 class="mdl-card__title-text" style="width:100%; display:inline;  font-size: 26px; text-align: center;" >NO SENSORS FOUND </h5>
+          </div>
+          <div class="mdl-card__title">
+              <h6 class="mdl-card__title-text" style="width:100%; font-size: 18px; color: grey; display:inline; text-align: center;" >Add NEW sensor to see it over here</h6>
+            </div>
+        </div>
+      <%}%>
+    </div>
+
+    
+    <% include ../views/partials/footer%>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <header class="mdl-layout__header">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <span class="mdl-layout-title">
+        <%= title %>
+      </span>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation. We hide it in small screens. -->
+      <nav class="mdl-navigation mdl-layout--large-screen-only">
+        <a class="mdl-navigation__link" href="/">Home</a>
+        <a class="mdl-navigation__link" href="/network">IoT Network</a>
+        <a class="mdl-navigation__link" href="/microcontroller">Microcontrollers</a>
+        <a class="mdl-navigation__link" href="/sensor">Sensors</a>
+        <a class="mdl-navigation__link" href="/about">About</a>
+      </nav>
+    </div>
+  </header>
+  <div class="mdl-layout__drawer">
+    <header class="drawer-header">
+    <img src="../images/user.gif" class="user-avatar">
+    <div class="drawer-greet" style="margin-top:10px;">
+        <span>Welcome User!</span>
+      </div>
+    </header>
+    <!-- <span class="mdl-layout-title">MENU</span> -->
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link nav-panel" href="/">
+        <i class="mdl-color-text--accent material-icons" role="presentation">home</i> HOME
+      </a>
+      <a class="mdl-navigation__link nav-panel" href="/microcontroller">
+        <i class="mdl-color-text--accent material-icons" role="presentation">memory</i> MICROCONTROLLERS
+      </a>
+      <a class="mdl-navigation__link nav-panel" href="/sensor">
+        <i class="mdl-color-text--accent material-icons" role="presentation">wifi</i> SENSORS
+      </a>
+      <a class="mdl-navigation__link nav-panel" href="/about">
+        <i class="mdl-color-text--accent material-icons" role="presentation">info</i> ABOUT
+      </a>
+      <a class="mdl-navigation__link nav-panel" href="#" onClick="(function(){ window.open('http://'+window.location.hostname+':3001'); return false; })();return false;" target="external">
+        <i class="mdl-color-text--accent material-icons" role="presentation">cloud_download</i> OTA
+      </a>
+      <!-- <a class="mdl-navigation__link" href="/mock_esp" target="external">
+        <i class="mdl-color-text--accent material-icons" role="presentation">block</i> Mock ESP
+      </a> -->
+    </nav>
+  </div>
+  <div role="button" tabindex="0" class="mdl-layout__drawer-button">
+    <i class="material-icons"></i>
+  </div>
+  <main class="mdl-layout__content">
+    <div class="page-content">

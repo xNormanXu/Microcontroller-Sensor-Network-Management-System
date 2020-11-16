@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../views/partials/html_head%>
+    <title>
+      <%= title %>
+    </title>
+</head>
+
+<body>
+  <% include ../views/partials/header%>
+
+    <form id="add_new_sensor" method="post" action="../api/network/viewNetwork">
+      <div class="mdl-card-wide mdl-shadow--2dp" style="background: whitesmoke;">
+        <div class="mdl-card__title mdl-card--expand">
+          <h2 class="mdl-card__title-text">View Network information below</h2>
+        </div>
+        <div class="mdl-card__supporting-text" style="width: 98%;">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell--4-col">
+            <input class="mdl-textfield__input" type="text" pattern="-?^[a-zA-Z0-9 _]*?" name="name" id="name" value="<%= network.name %>" data-required=true>
+            <label class="mdl-textfield__label" for="name">Name</label>
+            <span class="mdl-textfield__error">Use only characters and numbers!</span>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            <textarea class="mdl-textfield__input" type="text" rows=4 name="description" id="description"
+              placeholder="Enter some description or information about the network." required><%= network.description %></textarea>
+            <label class="mdl-textfield__label" for="description">Description</label>
+            <span class="mdl-textfield__error">Enter some valid description!</span>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell--4-col">
+            <span style="padding: 8px; top:4px; font-size:10px; color: var(--accent-green);">Microcontroller</span>
+            <select class="mdl-textfield__input" name="selected_microcontroller" id="selected_microcontroller" hint:"select a microcontroller from the list" data-required=true>
+              <% for(let i = 0; i < microcontrollers.length; i++){ %>
+                <option value="<%= microcontrollers[i].name %> (<%= microcontrollers[i].model_type %>)" <% if(microcontrollers[i].model_type == microcontrollers[i].model_type ){ %>
+                  selected <% }%></option> <%= microcontrollers[i].name %> (<%= microcontrollers[i].model_type %>)
+                </option>
+              <% }%>
+            </select>
+          </div>
+          <input id="btnAdd"
+            class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-cell--2-col-phone"
+            style="background:#8BC34A; color: white;" type="button" value="Add">
+          <br>
+          <div id="add_microcontrollers_layout" class="mdl-grid" style="justify-content: left;">
+            <% for(let i = 0; i < network.microcontrollers.length; i++){ %>
+              <div class="mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--6-col-desktop border-rc m2">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label p4 mdl-cell--4-col mdl-cell--6-col-desktop">
+                  <span style="top: 4px; font-size: 10px; color: var(--accent-green);">Microcontroller name and type</span>
+                  <input class= "mdl-textfield__input" type="text" pattern="-?^[a-zA-Z0-9 _]*?" name="microcontroller_name_type" id="microcontroller_name_type"
+                    value="<%= network.microcontroller_name_type[i] %>" readonly=true>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label p4 mdl-cell--4-col mdl-cell--6-col-desktop">
+                  <span style="top: 4px; font-size: 10px; color: var(--accent-green);">Mac address</span>
+                  <input class= "mdl-textfield__input" type="text" pattern="-?^[0-9]*?" name="mac_address" id="mac_address"
+                    value="<%= network.microcontrollers[i].mac_address %>" readonly=true>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label p4 mdl-cell--4-col mdl-cell--6-col-desktop">
+                  <span style="top: 4px; font-size: 10px; color: var(--accent-green);">Microcontroller location</span>
+                  <input class= "mdl-textfield__input" type="text" pattern="-?^[a-zA-Z0-9 _]*?" name="microcontroller_location" id="microcontroller_location"
+                    value="<%= network.microcontrollers[i].microcontroller_location %>" readonly=true>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label p4 mdl-cell--4-col mdl-cell--6-col-desktop">
+                  <span style="top: 4px; font-size: 10px; color: var(--accent-green);">Number of sensors</span>
+                  <input class= "mdl-textfield__input" type="text" pattern="-?^[0-9]*?" name="num_of_sensors" id="num_of_sensors"
+                    value="<%= network.microcontrollers[i].sensors.length %>" readonly=true>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label p4 mdl-cell--4-col mdl-cell--12-col-desktop">
+                  <span style="top: 4px; font-size: 10px; color: var(--accent-green);">Sensor name and type</span>
+                  <input class= "mdl-textfield__input" type="text" pattern="-?^[a-zA-Z0-9 _]*?" name="sensor_name_type" id="sensor_name_type"
+                    value="<%= network.sensor_name_type[i] %>" readonly=true>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label p4 mdl-cell--4-col mdl-cell--12-col-desktop" style="display: none;">
+                  <span style="top: 4px; font-size: 10px; color: var(--accent-green);">Sensor location</span>
+                  <input class= "mdl-textfield__input" type="text" pattern="-?^[a-zA-Z0-9 _]*?" name="sensor_location" id="sensor_location"
+                    value="<%= network.microcontrollers[i].sensors.map(sensor => sensor.sensor_location) %>" readonly=true>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label p4 mdl-cell--4-col mdl-cell--12-col-desktop" style="display: none;">
+                  <span style="top: 4px; font-size: 10px; color: var(--accent-green);">Sampling frequency</span>
+                  <input class= "mdl-textfield__input" type="text" pattern="-?^[a-zA-Z0-9 _]*?" name="sampling_frequency" id="sampling_frequency"
+                    value="<%= network.microcontrollers[i].sensors.map(sensor => sensor.sampling_frequency) %>" readonly=true>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label p4 mdl-cell--4-col mdl-cell--12-col-desktop" style="display: none;">
+                  <span style="top: 4px; font-size: 10px; color: var(--accent-green);">Number of pins</span>
+                  <input class= "mdl-textfield__input" type="text" pattern="-?^[0-9]*?" name="num_of_pins" id="num_of_pins"
+                    value="<%= network.microcontrollers[i].sensors.map(sensor => sensor.pins.length) %>" readonly=true>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label p4 mdl-cell--4-col mdl-cell--12-col-desktop" style="display: none;">
+                  <span style="top: 4px; font-size: 10px; color: var(--accent-green);">Microcontroller pin</span>
+                  <input class= "mdl-textfield__input" type="text" pattern="-?^[a-zA-Z0-9 _]*?" name="microcontroller_pin" id="microcontroller_pin"
+                    value="<%= network.microcontrollers[i].sensors.map(sensor => (sensor.pins.map(pin => pin.microcontroller_pin))) %>" readonly=true>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label p4 mdl-cell--4-col mdl-cell--12-col-desktop" style="display: none;">
+                  <span style="top: 4px; font-size: 10px; color: var(--accent-green);">Sensor pin</span>
+                  <input class= "mdl-textfield__input" type="text" pattern="-?^[a-zA-Z0-9 _]*?" name="sensor_pin" id="sensor_pin"
+                    value="<%= network.microcontrollers[i].sensors.map(sensor => (sensor.pins.map(pin => pin.sensor_pin))) %>" readonly=true>
+                </div>
+                <div class="drop-down">
+                  <input class= "drop-down-button" type="button" value="...">
+                  <div class="drop-down-menu">
+                    <a href="/network/viewNetwork/edit?mac=<%= network.microcontrollers[i].mac_address %>">Edit</a>
+                    <a href="/network/viewNetwork/view?mac=<%= network.microcontrollers[i].mac_address %>">View</a>
+                    <a href="#" onclick=this.parentNode.parentNode.parentNode.remove()>Delete</a>
+                  </div>
+                </div>
+              </div>
+            <% }%>
+          </div>
+          <br>
+          <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit" value="submit">
+        </div>
+      </div>
+    </form>
+
+    <script src="../javascripts/network_viewNetwork.js" ></script>
+    <% include ../views/partials/footer%>
+</body>
+
+</html>

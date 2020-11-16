@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../views/partials/html_head%>
+    <title>
+      <%= title %>
+    </title>
+</head>
+
+<body>
+  <% include ../views/partials/header%>
+
+    <form id="add_new_sensor" method="post" action="../api/sensor/add">
+      <div class="mdl-card-wide mdl-shadow--2dp" style="background: whitesmoke;">
+        <div class="mdl-card__title mdl-card--expand">
+          <h2 class="mdl-card__title-text">Add Sensor information below</h2>
+        </div>
+        <div class="mdl-card__supporting-text" style="width: 98%;">
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell--4-col">
+            <input class="mdl-textfield__input" type="text" pattern="-?^[a-zA-Z0-9 _]*?" name="name" id="name" required="true">
+            <label class="mdl-textfield__label" for="name">Name</label>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell--4-col">
+            <input class="mdl-textfield__input" type="text" pattern="-?^[a-zA-Z0-9_]*?" name="model_type" id="model_type" required="true">
+            <label class="mdl-textfield__label" for="model_type">Model type</label>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell--4-col">
+            <span style="padding: 8px; top:4px; font-size:10px; color: var(--accent-green);"> Category: </span>
+              <select class="mdl-textfield__input" name='category'>
+                <option value="0">ACTUATOR</option>
+                <option value="1" selected>SENSOR</option>
+              </select>
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell--12-col-desktop mdl-cell--8-col-tablet mdl-cell--4-col-phone">
+            <input class="mdl-textfield__input" type="text" name="description" id="description" required="true">
+            <label class="mdl-textfield__label" for="description">Description</label>
+          </div>
+          <br>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" pattern="-?^[0-9]*?" name="num_of_pins" id="num_of_pins" data-required=true>
+            <label class="mdl-textfield__label" for="num_of_pins">Number of Pins:</label>
+            <span class="mdl-textfield__error">Invalid Number!</span>
+          </div>
+          <br>
+          <span style="top:4px; font-size:12px; color:var(--accent-green)">Enter pin labels below: </span>
+          <div id="pins_layout" class="mdl-grid">
+            
+          </div>
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" pattern="-?^[0-9]*?" name="num_of_fields" id="num_of_fields" data-required=true>
+            <label class="mdl-textfield__label" for="num_of_fields">Number of Fields in Schema:</label>
+            <span class="mdl-textfield__error">Invalid Number!</span>
+          </div>
+          <br>
+          <span style="top:4px; font-size:12px; color:var(--accent-green)">Enter fields below: </span>
+          <div id="fields_layout" class="mdl-grid">
+            
+          </div>
+          <br>
+          <input class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" type="submit" value="submit">
+        </div>
+      </div>
+    </form>
+
+    <script src="../javascripts/sensor_add.js" ></script>
+    <script src="../javascripts/data_required_script.js"></script>
+    <% include ../views/partials/footer%>
+</body>
+
+</html>

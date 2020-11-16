@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <% include ../views/partials/html_head%>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <title>
+      <%= head_title %>
+    </title>
+
+</head>
+
+<body>
+  <% include ../views/partials/header%>
+
+    <h3 style="font-size:26px; text-align:center; background-color: #333333;">
+      <%= head_title %>
+    </h3>
+    <div class="mdl-grid evenly-distributed-children">
+      
+      <div class="mdl-card-wide mdl-shadow--2dp mdl-cell--4-col mdl-cell--6-col-desktop" style="background: white; min-height: 200px; border-radius:4px; ">
+        <div class="mdl-card__media" style="height:4px; background: var(--accent-green) ; border-radius:4px 4px 0 0;">
+            <h3 class="mdl-card__title-text hidden-gone">ESPs</h3>
+        </div>
+        <div class="mdl-card__title mdl-card--expand">
+          <canvas id="esp-pie-chart" style="height:calc(100%);"></canvas>
+        </div>
+      </div>
+      <div class="mdl-card-wide mdl-shadow--2dp mdl-cell--4-col mdl-cell--6-col-desktop" style="background: white; min-height: 200px; border-radius:4px;">
+        <div class="mdl-card__media" style="height:4px; background: var(--accent-green); border-radius:4px 4px 0 0;">
+            <h3 class="mdl-card__title-text hidden-gone">Sensors</h3>
+        </div>
+        <div class="mdl-card__title mdl-card--expand">
+          <canvas id="sensor-pie-chart" style="height:calc(100%);"></canvas>
+        </div>
+      </div>
+    
+    </div>
+    
+    <h3 class="hidden-gone">DASHBOARD HOME</h3>
+
+    <script src="../javascripts/dashboard.js"></script>
+    <% include ../views/partials/footer%>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Mock ESP</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="../javascripts/esp_mock.js"></script>
+    <style>
+      body { background: #181818; color: white;}
+      p { color: whitesmoke; padding:2px; margin: 0px;}
+      </style>
+  </head>
+  <body>
+    <h2>Mock ESP</h2>
+    <span class="hidden" id="serverip" data-ip="<%= server.ip %>"> </span>
+    <button onclick="init()"> POWER ON ESP </button>
+    <div id="output_console"></div>
+  </body>
+</html>

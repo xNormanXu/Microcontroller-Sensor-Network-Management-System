@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../views/partials/html_head%>
+    <title>
+      <%= title %>
+    </title>
+</head>
+
+<body>
+  <% include ../views/partials/header%>
+  
+    <div class="mdl-grid mdl-card mdl-card__actions" style="top:70px; right:20px; margin: 5px; min-height: 50px; float:right; position: fixed; z-index: 999; overflow: visible;">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="window.open('/network/add','_self');"
+          style="position:absolute; right:10px;">
+          <span class="mdl-chip__text">Add new network</span>
+          <i class="material-icons">add</i>
+        </button>
+    </div>
+    <div class="mdl-grid portfolio-max-width" style="margin-top: 50px; padding:20px;">
+      <% if(networks && networks.length > 0){%>
+        <% networks.forEach(function(network, index) { %>
+          <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card" style="max-height: 240px;">
+            <div class="mdl-card__media online"></div>
+            <div class="mdl-card__title" style="padding: 12px 16px 4px;">
+              <h5 class="mdl-card__title-text"><%= network.name %></h5>
+            </div>
+            
+            <div class="mdl-card__supporting-text description giveMeEllipsis " onclick=" $(this).toggleClass('giveMeEllipsis');$(this).toggleClass('overflow-scroll');">
+              <%= network.description %>
+            </div>
+            <div class="mdl-card__supporting-text">
+              <strong>Number of Microcontrollers: </strong> <%= network.microcontrollers.length %>
+            </div>
+            <div class="mdl-card__supporting-text">
+              <strong>Microcontrollers: </strong> <%= network.microcontroller_name_type %>
+            </div>
+            <div class="mdl-card__supporting-text">
+              <strong>Number of Sensors: </strong> <%= network.microcontrollers.reduce((prev, curr) => prev + curr.sensors.length, 0); %>
+            </div>
+            <div class="mdl-card__supporting-text">
+              <strong>Sensors: </strong> <%= network.sensor_name_type %>
+            </div>
+            <div class="mdl-card__actions mdl-card--border" style="position:inherit;bottom:0;">
+              <div class="drop-up">
+                <input class= "drop-up-button" type="button" value="...">
+                <div class="drop-up-menu">
+                  <a href="/network/modify?name=<%= network.name %>">Edit</a>
+                  <a href="#" onclick="deleteNetwork(this)" data-name="<%= network.name %>">Delete</a>
+                  <a href="/network/viewNetwork?name=<%= network.name %>">View network</a>
+                  <a href="/network/viewSensor?name=<%= network.name %>">View sensor</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        <%});%>
+      <%}else{%>
+        <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card" style="width:calc(100%);">
+          <div class="mdl-card__media offline">
+          </div>
+          <div class="mdl-card__title">
+            <h5 class="mdl-card__title-text" style="width:100%; display:inline;  font-size: 26px; text-align: center;" >NO NETWORK FOUND </h5>
+          </div>
+          <div class="mdl-card__title">
+            <h6 class="mdl-card__title-text" style="width:100%; font-size: 18px; color: grey; display:inline; text-align: center;" >Add NEW NETWORK to see it over here</h6>
+          </div>
+        </div>
+      <%}%>
+    </div>
+
+  <script src="../javascripts/network_home.js" ></script>
+  <% include ../views/partials/footer%>
+</body>
+
+</html>
